@@ -2,12 +2,13 @@ window.onload = (event) => {
 
   const buttons = document.querySelectorAll(".drum");
 
-  function changeColor(key) {
-    let elem = document.querySelector("." + key);
-    elem.style.color = "white";
+  function makeAnimation(currentKey) {
+    let activeButton = document.querySelector("." + currentKey);
+    activeButton.classList.add('pressed');
+
     setTimeout(() => {
-      elem.style.color = "#DA0463";
-    }, 0.5);
+      activeButton.classList.remove('pressed');
+    }, 100);
   }
 
   function makeSound(key) {
@@ -57,29 +58,18 @@ window.onload = (event) => {
     button.addEventListener('click', function play() {
 
       const buttonInnerHTML = this.innerHTML;
-      changeColor(buttonInnerHTML);
+      // changeColor(buttonInnerHTML);
       makeSound(buttonInnerHTML);
+      makeAnimation(buttonInnerHTML);
 
     });
   })
 
 
-// Detecting Keyboard Press
-  addEventListener("keydown", function (event) {
+  // Detecting Keyboard Press
+  addEventListener("keydown", (event) => {
     makeSound(event.key);
-
-    if (
-      event.key === "w" ||
-      event.key === "a" ||
-      event.key === "s" ||
-      event.key === "d" ||
-      event.key === "j" ||
-      event.key === "k" ||
-      event.key === "l"
-    ) {
-      changeColor(event.key);
-    }
-
+    makeAnimation(event.key);
 
   })
 
